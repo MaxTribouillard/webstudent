@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la maison{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">✏️ Modifier la Maison</h1>
+        </div>
+
+        {{ include('maison/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <div class="btn-group" style="margin-top: 1rem;">
+            <a href="{{ path('app_maison_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            {{ include('maison/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

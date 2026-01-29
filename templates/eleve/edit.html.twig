@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Eleve{% endblock %}
+{% block title %}Modifier l'élève{% endblock %}
 
 {% block body %}
-    <h1>Edit Eleve</h1>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">✏️ Modifier l'Élève</h1>
+        </div>
 
-    {{ include('eleve/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('eleve/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_eleve_index') }}">back to list</a>
-
-    {{ include('eleve/_delete_form.html.twig') }}
+        <div class="btn-group" style="margin-top: 1rem;">
+            <a href="{{ path('app_eleve_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            {{ include('eleve/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

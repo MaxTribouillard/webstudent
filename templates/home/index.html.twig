@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La Grande Salle - Poudlard{% endblock %}
+
+{% block body %}
+    {# Bannière de Bienvenue - Majestueuse #}
+    <div class="great-hall-banner">
+        <div class="banner-content">
+            <h1 class="great-hall-title">
+                <i data-lucide="sparkles" style="width: 48px; height: 48px;"></i>
+                Bienvenue dans la Grande Salle
+            </h1>
+            <p class="great-hall-subtitle">
+                Découvrez les mystères de Poudlard, l'école de sorcellerie la plus prestigieuse du monde magique
+            </p>
+            <div class="hall-motto">
+                <i data-lucide="scroll-text"></i>
+                <em>"Draco dormiens nunquam titillandus"</em>
+            </div>
+        </div>
+    </div>
+
+    {# Statistiques des Maisons - Quatre colonnes principales #}
+    <div class="houses-section">
+        <h2 class="section-title">
+            <i data-lucide="castle"></i>
+            Les Quatre Maisons de Poudlard
+        </h2>
+        
+        <div class="houses-grid">
+            <a href="{{ path('app_maison_index') }}" class="house-card house-gryffindor">
+                <div class="house-crest">
+                    <i data-lucide="flame"></i>
+                </div>
+                <h3 class="house-name">Gryffondor</h3>
+                <p class="house-trait">Courage & Bravoure</p>
+                <div class="house-count">{{ stats.maisons }} Maisons</div>
+            </a>
+
+            <a href="{{ path('app_eleve_index') }}" class="house-card house-slytherin">
+                <div class="house-crest">
+                    <i data-lucide="sparkle"></i>
+                </div>
+                <h3 class="house-name">Élèves</h3>
+                <p class="house-trait">Les Sorciers de Demain</p>
+                <div class="house-count">{{ stats.eleves }} Élèves</div>
+            </a>
+
+            <a href="{{ path('app_professeur_index') }}" class="house-card house-ravenclaw">
+                <div class="house-crest">
+                    <i data-lucide="book-open"></i>
+                </div>
+                <h3 class="house-name">Professeurs</h3>
+                <p class="house-trait">Sagesse & Savoir</p>
+                <div class="house-count">{{ stats.professeurs }} Maîtres</div>
+            </a>
+
+            <a href="{{ path('app_matiere_index') }}" class="house-card house-hufflepuff">
+                <div class="house-crest">
+                    <i data-lucide="scroll"></i>
+                </div>
+                <h3 class="house-name">Matières</h3>
+                <p class="house-trait">Arts Magiques</p>
+                <div class="house-count">{{ stats.matieres }} Cours</div>
+            </a>
+        </div>
+    </div>
+
+    {# Statistiques Magiques - Grille complémentaire #}
+    <div class="magical-stats-section">
+        <h2 class="section-title">
+            <i data-lucide="wand-2"></i>
+            Registres Magiques
+        </h2>
+        
+        <div class="stats-grid">
+            <a href="{{ path('app_baguette_index') }}" class="stat-card magical-wands">
+                <div class="stat-icon">
+                    <i data-lucide="wand"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-title">Baguettes Magiques</div>
+                    <div class="stat-value">{{ stats.baguettes }}</div>
+                    <div class="stat-desc">Instruments de pouvoir</div>
+                </div>
+            </a>
+
+            <a href="{{ path('app_note_index') }}" class="stat-card magical-grades">
+                <div class="stat-icon">
+                    <i data-lucide="scroll-text"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-title">Notes & Évaluations</div>
+                    <div class="stat-value">{{ stats.notes }}</div>
+                    <div class="stat-desc">Résultats académiques</div>
+                </div>
+            </a>
+
+            <a href="{{ path('app_competence_index') }}" class="stat-card magical-skills">
+                <div class="stat-icon">
+                    <i data-lucide="sparkles"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-title">Compétences Magiques</div>
+                    <div class="stat-value">{{ stats.competences }}</div>
+                    <div class="stat-desc">Sorts & Enchantements</div>
+                </div>
+            </a>
+
+            <a href="{{ path('app_promotion_index') }}" class="stat-card magical-years">
+                <div class="stat-icon">
+                    <i data-lucide="calendar"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-title">Promotions</div>
+                    <div class="stat-value">{{ stats.promotions }}</div>
+                    <div class="stat-desc">Années scolaires</div>
+                </div>
+            </a>
+
+            <a href="{{ path('app_composition_index') }}" class="stat-card magical-exams">
+                <div class="stat-icon">
+                    <i data-lucide="flask-conical"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-title">Compositions</div>
+                    <div class="stat-value">{{ stats.compositions }}</div>
+                    <div class="stat-desc">Examens & Tests</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    {# Actions Rapides - Grimoire des Sorts #}
+    <div class="quick-actions-section">
+        <h2 class="section-title">
+            <i data-lucide="zap"></i>
+            Actions Rapides
+        </h2>
+        
+        <div class="quick-actions-grid">
+            <a href="{{ path('app_eleve_new') }}" class="quick-action-card action-primary">
+                <i data-lucide="user-plus"></i>
+                <span>Inscrire un Nouvel Élève</span>
+            </a>
+            
+            <a href="{{ path('app_professeur_new') }}" class="quick-action-card action-success">
+                <i data-lucide="user-check"></i>
+                <span>Recruter un Professeur</span>
+            </a>
+            
+            <a href="{{ path('app_matiere_new') }}" class="quick-action-card action-warning">
+                <i data-lucide="book-plus"></i>
+                <span>Créer une Matière</span>
+            </a>
+            
+            <a href="{{ path('app_note_new') }}" class="quick-action-card action-info">
+                <i data-lucide="pen-line"></i>
+                <span>Enregistrer une Note</span>
+            </a>
+
+            <a href="{{ path('app_baguette_new') }}" class="quick-action-card action-magical">
+                <i data-lucide="wand-2"></i>
+                <span>Enregistrer une Baguette</span>
+            </a>
+
+            <a href="{{ path('app_competence_new') }}" class="quick-action-card action-skill">
+                <i data-lucide="sparkles"></i>
+                <span>Ajouter une Compétence</span>
+            </a>
+        </div>
+    </div>
+
+    {# Citation Magique de Fin #}
+    <div class="magical-quote">
+        <i data-lucide="quote"></i>
+        <p class="quote-text">
+            "Le bonheur peut être trouvé même dans les moments les plus sombres, 
+            si l'on se souvient d'allumer la lumière."
+        </p>
+        <p class="quote-author">— Albus Dumbledore</p>
+    </div>
+{% endblock %}

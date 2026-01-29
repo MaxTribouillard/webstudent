@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvel Élève{% endblock %}
+{% block title %}Nouvelle Matière{% endblock %}
 
 {% block body %}
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">👨‍🎓 Créer un Nouvel Élève</h1>
+            <h1 class="card-title">📚 Nouvelle Matière</h1>
         </div>
 
-        {{ include('eleve/_form.html.twig') }}
+        {{ include('matiere/_form.html.twig') }}
 
         <div style="margin-top: 1rem;">
-            <a href="{{ path('app_eleve_index') }}" class="btn btn-secondary">
+            <a href="{{ path('app_matiere_index') }}" class="btn btn-secondary">
                 ⬅️ Retour à la liste
             </a>
         </div>

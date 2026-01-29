@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la composition{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">✏️ Modifier la composition</h1>
+        </div>
+
+        {{ include('composition/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <div class="btn-group" style="margin-top: 1rem;">
+            <a href="{{ path('app_composition_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_composition_show', {'id': composition.id}) }}" class="btn btn-primary">
+                👁️ Voir
+            </a>
+        </div>
+    </div>
+{% endblock %}

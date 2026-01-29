@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Professeurs{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">👩‍🏫 Liste des Professeurs</h1>
+                <a href="{{ path('app_professeur_new') }}" class="btn btn-primary">
+                    ➕ Nouveau Professeur
+                </a>
+            </div>
+        </div>
+
+        {% if professeurs|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Date de Naissance</th>
+                            <th>⭐ Compétences</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for professeur in professeurs %}
+                        <tr>
+                            <td>{{ professeur.id }}</td>
+                            <td><strong>{{ professeur.nom }}</strong></td>
+                            <td>{{ professeur.prenom }}</td>
+                            <td>{{ professeur.dateNaissance ? professeur.dateNaissance|date('d/m/Y') : '-' }}</td>
+                            <td>
+                                <span class="badge badge-success">{{ professeur.competence|length }} compétence(s)</span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_professeur_show', {'id': professeur.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_professeur_edit', {'id': professeur.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">👩‍🏫</div>
+                <div class="empty-state-text">Aucun professeur trouvé</div>
+                <a href="{{ path('app_professeur_new') }}" class="btn btn-primary">
+                    ➕ Créer le premier professeur
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

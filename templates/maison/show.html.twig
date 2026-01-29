@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la maison - {{ maison.nom }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">🏰 {{ maison.nom }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ maison.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nom de la Maison</div>
+                <div class="detail-value">{{ maison.nom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre d'élèves</div>
+                <div class="detail-value">{{ maison.eleves|length }}</div>
+            </div>
+        </div>
+
+        {% if maison.eleves|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">👨‍🎓 Élèves de la Maison ({{ maison.eleves|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>🎯 Promotion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in maison.eleves %}
+                                <tr>
+                                    <td><strong>{{ eleve.nom }}</strong></td>
+                                    <td>{{ eleve.prenom }}</td>
+                                    <td>
+                                        {% if eleve.promotion %}
+                                            <a href="{{ path('app_promotion_show', {'id': eleve.promotion.id}) }}" class="entity-link">
+                                                {{ eleve.promotion.libelle }}
+                                            </a>
+                                        {% else %}
+                                            <span style="color: #9ca3af;">Aucune</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_eleve_show', {'id': eleve.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_maison_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_maison_edit', {'id': maison.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('maison/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

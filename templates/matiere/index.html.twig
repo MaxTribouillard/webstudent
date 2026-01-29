@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Matières{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">📚 Liste des Matières</h1>
+                <a href="{{ path('app_matiere_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Matière
+                </a>
+            </div>
+        </div>
+
+        {% if matieres|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Libellé</th>
+                            <th>Nb Max Élèves</th>
+                            <th>📝 Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for matiere in matieres %}
+                        <tr>
+                            <td>{{ matiere.id }}</td>
+                            <td><strong>{{ matiere.libelle }}</strong></td>
+                            <td>{{ matiere.nbElevesMax ?: '-' }}</td>
+                            <td>
+                                <span class="badge badge-info">{{ matiere.notes|length }} note(s)</span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_matiere_show', {'id': matiere.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">📚</div>
+                <div class="empty-state-text">Aucune matière trouvée</div>
+                <a href="{{ path('app_matiere_new') }}" class="btn btn-primary">
+                    ➕ Créer la première matière
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Compétences{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">⭐ Liste des Compétences</h1>
+                <a href="{{ path('app_competence_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Compétence
+                </a>
+            </div>
+        </div>
+
+        {% if competences|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>👨‍🎓 Élèves</th>
+                            <th>👩‍🏫 Professeurs</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for competence in competences %}
+                        <tr>
+                            <td>{{ competence.id }}</td>
+                            <td><strong>{{ competence.code }}</strong></td>
+                            <td>{{ competence.libelle }}</td>
+                            <td>{{ competence.eleves|length }}</td>
+                            <td>{{ competence.professeurs|length }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_competence_show', {'id': competence.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_competence_edit', {'id': competence.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">⭐</div>
+                <div class="empty-state-text">Aucune compétence trouvée</div>
+                <a href="{{ path('app_competence_new') }}" class="btn btn-primary">
+                    ➕ Créer la première compétence
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

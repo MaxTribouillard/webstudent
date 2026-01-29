@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Maisons{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">🏰 Liste des Maisons</h1>
+                <a href="{{ path('app_maison_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Maison
+                </a>
+            </div>
+        </div>
+
+        {% if maisons|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>👨‍🎓 Nombre d'élèves</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for maison in maisons %}
+                        <tr>
+                            <td>{{ maison.id }}</td>
+                            <td><strong>{{ maison.nom }}</strong></td>
+                            <td>
+                                <span class="badge badge-info">{{ maison.eleves|length }} élève(s)</span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_maison_show', {'id': maison.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_maison_edit', {'id': maison.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">🏰</div>
+                <div class="empty-state-text">Aucune maison trouvée</div>
+                <a href="{{ path('app_maison_new') }}" class="btn btn-primary">
+                    ➕ Créer la première maison
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

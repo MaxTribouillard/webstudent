@@ -1,3 +1,1537 @@
+/* ============================================
+   HOGWARTS - POUDLARD CSS THEME
+   École de Sorcellerie et de Magie
+   ============================================ */
+
+/* Reset & Base */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* House Colors - Les quatre maisons de Poudlard */
+    --gryffindor-red: #740001;
+    --gryffindor-gold: #d3a625;
+    --slytherin-green: #1a472a;
+    --slytherin-silver: #aaaaaa;
+    --ravenclaw-blue: #0e1a40;
+    --ravenclaw-bronze: #946b2d;
+    --hufflepuff-yellow: #ecb939;
+    --hufflepuff-black: #000000;
+    
+    /* Main Palette - Ambiance château médiéval */
+    --stone-dark: #2a2421;
+    --stone-medium: #4a453f;
+    --stone-light: #6b6157;
+    --parchment: #f4e8d0;
+    --parchment-dark: #d4c4a8;
+    --ink: #1a1512;
+    --gold: #d4af37;
+    --bronze: #cd7f32;
+    --silver: #c0c0c0;
+    
+    /* Semantic Colors */
+    --magic-green: #2d5a3a;
+    --magic-purple: #4a2d5a;
+    --danger-red: #8b0000;
+    --warning-amber: #b8860b;
+    
+    /* Shadows - Ambiance sombre et mystérieuse */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.6);
+    --glow-gold: 0 0 20px rgba(212, 175, 55, 0.4);
+    
+    /* Typography */
+    --font-title: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+    
+    /* Transitions */
+    --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Body - Ambiance château */
 body {
-    background-color: skyblue;
+    font-family: var(--font-body);
+    background: 
+        linear-gradient(rgba(26, 20, 18, 0.85), rgba(26, 20, 18, 0.85)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4"/></filter><rect width="400" height="400" filter="url(%23noise)" opacity="0.05"/></svg>') repeat,
+        radial-gradient(ellipse at top, #2d2520 0%, #1a1512 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--parchment);
+    line-height: 1.7;
+    font-size: 16px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Magical Background Animation */
+.magical-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.magical-background::before,
+.magical-background::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(150, 107, 45, 0.02) 0%, transparent 50%);
+    animation: float 20s infinite ease-in-out;
+}
+
+.magical-background::after {
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(5deg); }
+    66% { transform: translate(-20px, 20px) rotate(-5deg); }
+}
+
+/* Header - Style château de Poudlard */
+.hogwarts-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, var(--stone-dark) 0%, var(--stone-medium) 100%);
+    border-bottom: 3px solid var(--gold);
+    box-shadow: var(--shadow-lg);
+}
+
+.header-decoration {
+    height: 8px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--gryffindor-gold) 0px, var(--gryffindor-gold) 20px,
+        var(--gryffindor-red) 20px, var(--gryffindor-red) 40px,
+        var(--slytherin-green) 40px, var(--slytherin-green) 60px,
+        var(--ravenclaw-blue) 60px, var(--ravenclaw-blue) 80px,
+        var(--hufflepuff-yellow) 80px, var(--hufflepuff-yellow) 100px
+    );
+}
+
+.header-decoration.bottom {
+    height: 3px;
+}
+
+/* Navigation */
+.hogwarts-nav {
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.hogwarts-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--parchment);
+    transition: var(--transition);
+}
+
+.hogwarts-logo:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(var(--glow-gold));
+}
+
+.logo-shield {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, var(--gold) 0%, var(--bronze) 100%);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--gold);
+}
+
+.logo-shield svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--stone-dark);
+    stroke-width: 2.5;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.school-name {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.school-subtitle {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--parchment-dark);
+    letter-spacing: 0.03em;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    color: var(--parchment-dark);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.nav-link:hover::before {
+    opacity: 0.15;
+}
+
+.nav-link:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.nav-link svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+/* Main Content Area */
+.hogwarts-main {
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 200px);
+}
+
+.content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+/* Cards - Style parchemin et bois ancien */
+.card {
+    background: linear-gradient(135deg, var(--parchment) 0%, #e8dcc0 100%);
+    border: 2px solid var(--bronze);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, 
+        var(--gryffindor-gold) 0%, 
+        var(--gryffindor-red) 25%,
+        var(--slytherin-green) 50%,
+        var(--ravenclaw-blue) 75%,
+        var(--hufflepuff-yellow) 100%);
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="paper"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100" height="100" filter="url(%23paper)" opacity="0.03"/></svg>') repeat;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.card-header {
+    border-bottom: 2px solid var(--bronze);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-title {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--stone-dark);
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-title svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--gold);
+    stroke-width: 2;
+}
+
+/* Buttons - Style médiéval */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gryffindor-red) 0%, #5a0001 100%);
+    border-color: var(--gryffindor-gold);
+    color: var(--parchment);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a0001 0%, var(--gryffindor-red) 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-gold);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--magic-green) 0%, #1a3a24 100%);
+    border-color: var(--magic-green);
+    color: var(--parchment);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #1a3a24 0%, var(--magic-green) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-amber) 0%, #8b6914 100%);
+    border-color: var(--gold);
+    color: var(--ink);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #8b6914 0%, var(--warning-amber) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-red) 0%, #5a0000 100%);
+    border-color: var(--danger-red);
+    color: var(--parchment);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #5a0000 0%, var(--danger-red) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--stone-medium) 0%, var(--stone-dark) 100%);
+    border-color: var(--stone-light);
+    color: var(--parchment);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, var(--stone-dark) 0%, var(--stone-medium) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Tables - Style registre ancien */
+.table-responsive {
+    border: 2px solid var(--bronze);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 1;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--parchment);
+}
+
+.table thead {
+    background: linear-gradient(180deg, var(--stone-medium) 0%, var(--stone-dark) 100%);
+    color: var(--parchment);
+    border-bottom: 3px solid var(--gold);
+}
+
+.table thead th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--bronze);
+    transition: var(--transition);
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.table tbody td {
+    padding: 1.125rem 1.25rem;
+    color: var(--ink);
+    font-size: 0.95rem;
+}
+
+.table tbody td strong {
+    color: var(--stone-dark);
+    font-weight: 700;
+}
+
+/* Forms - Style parchemin */
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--stone-dark);
+    margin-bottom: 0.625rem;
+    letter-spacing: 0.03em;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid var(--bronze);
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.form-control:hover {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    background: #ffffff;
+}
+
+/* Badges - Insignes des maisons */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-decoration: none;
+    border: 1px solid;
+    letter-spacing: 0.03em;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, var(--gryffindor-gold) 0%, var(--bronze) 100%);
+    color: var(--ink);
+    border-color: var(--gryffindor-gold);
+}
+
+.badge-success {
+    background: linear-gradient(135deg, var(--slytherin-green) 0%, #0d2617 100%);
+    color: var(--parchment);
+    border-color: var(--slytherin-silver);
+}
+
+.badge-info {
+    background: linear-gradient(135deg, var(--ravenclaw-blue) 0%, #070d1f 100%);
+    color: var(--parchment);
+    border-color: var(--ravenclaw-bronze);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, var(--hufflepuff-yellow) 0%, #a08628 100%);
+    color: var(--ink);
+    border-color: var(--hufflepuff-black);
+}
+
+/* Entity Links - Liens parchemin */
+.entity-link {
+    color: var(--gryffindor-red);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition);
+    position: relative;
+}
+
+.entity-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: var(--transition);
+}
+
+.entity-link:hover {
+    color: var(--gold);
+}
+
+.entity-link:hover::after {
+    width: 100%;
+}
+
+/* Stats Cards - Statistiques magiques */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+    transition: var(--transition);
+}
+
+.stat-card:hover::before {
+    top: -20%;
+    left: -20%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--glow-gold);
+}
+
+.stat-title {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.stat-value {
+    font-family: var(--font-title);
+    font-size: 2.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Detail Grid - Grille de détails */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.detail-item {
+    padding: 1.5rem;
+    background: rgba(244, 232, 208, 0.5);
+    border: 2px solid var(--bronze);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.detail-item:hover {
+    background: rgba(244, 232, 208, 0.8);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.detail-label {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--stone-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.detail-value {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* Related Sections */
+.related-section {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 2px solid var(--bronze);
+    position: relative;
+    z-index: 1;
+}
+
+.related-title {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--stone-dark);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.related-title svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--gold);
+}
+
+.related-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Alerts - Messages magiques */
+.alert {
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    border: 2px solid;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+}
+
+.alert-success {
+    background: rgba(45, 90, 58, 0.1);
+    border-color: var(--magic-green);
+    color: var(--magic-green);
+}
+
+.alert-danger {
+    background: rgba(139, 0, 0, 0.1);
+    border-color: var(--danger-red);
+    color: var(--danger-red);
+}
+
+.alert-info {
+    background: rgba(14, 26, 64, 0.1);
+    border-color: var(--ravenclaw-blue);
+    color: var(--ravenclaw-blue);
+}
+
+.alert-warning {
+    background: rgba(184, 134, 11, 0.1);
+    border-color: var(--warning-amber);
+    color: var(--warning-amber);
+}
+
+/* Empty State - État vide */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--stone-light);
+}
+
+.empty-state-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+    filter: grayscale(1);
+}
+
+.empty-state-text {
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--stone-medium);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+/* Footer - Pied de page avec couleurs des maisons */
+.hogwarts-footer {
+    background: var(--stone-dark);
+    padding: 2rem 0 1rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.house-colors {
+    display: flex;
+    height: 6px;
+    margin-bottom: 1.5rem;
+}
+
+.house-stripe {
+    flex: 1;
+    transition: var(--transition);
+}
+
+.house-stripe:hover {
+    transform: scaleY(1.5);
+}
+
+.house-stripe.gryffindor {
+    background: linear-gradient(90deg, var(--gryffindor-red) 0%, var(--gryffindor-gold) 100%);
+}
+
+.house-stripe.slytherin {
+    background: linear-gradient(90deg, var(--slytherin-green) 0%, var(--slytherin-silver) 100%);
+}
+
+.house-stripe.hufflepuff {
+    background: linear-gradient(90deg, var(--hufflepuff-yellow) 0%, var(--hufflepuff-black) 100%);
+}
+
+.house-stripe.ravenclaw {
+    background: linear-gradient(90deg, var(--ravenclaw-blue) 0%, var(--ravenclaw-bronze) 100%);
+}
+
+.footer-text {
+    text-align: center;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    color: var(--parchment-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--stone-dark);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--gold) 0%, var(--bronze) 100%);
+    border-radius: 10px;
+    border: 2px solid var(--stone-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--bronze) 0%, var(--gold) 100%);
+}
+
+/* Utility Classes */
+.text-gryffindor { color: var(--gryffindor-red); }
+.text-slytherin { color: var(--slytherin-green); }
+.text-ravenclaw { color: var(--ravenclaw-blue); }
+.text-hufflepuff { color: var(--hufflepuff-yellow); }
+.text-gold { color: var(--gold); }
+.text-muted { color: var(--stone-light); }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .content-wrapper {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .school-name {
+        font-size: 1.25rem;
+    }
+    
+    .school-subtitle {
+        font-size: 0.7rem;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        gap: 0.375rem;
+        width: 100%;
+    }
+    
+    .nav-link {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .card {
+        padding: 1.75rem;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .table thead th,
+    .table tbody td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-wrapper {
+        padding: 1.5rem 1rem;
+    }
+    
+    .card {
+        padding: 1.25rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo-shield {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo-shield svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .hogwarts-header,
+    .hogwarts-footer,
+    .magical-background,
+    .btn-group {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+        page-break-inside: avoid;
+    }
+    
+    .table thead {
+        background: #f0f0f0;
+        color: black;
+    }
+}
+
+/* Animations supplémentaires */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Special magical effects */
+.magical-glow {
+    position: relative;
+}
+
+.magical-glow::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--gold), var(--bronze), var(--gold));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.magical-glow:hover::after {
+    opacity: 0.7;
+    animation: shimmer 2s linear infinite;
+}
+
+/* Tooltips style Poudlard */
+[title] {
+    position: relative;
+    cursor: help;
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid var(--gold);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   GRANDE SALLE - HOME PAGE STYLES
+   ============================================ */
+
+/* Bannière de Bienvenue */
+.great-hall-banner {
+    background: linear-gradient(135deg, var(--stone-dark) 0%, var(--stone-medium) 100%);
+    border: 3px solid var(--gold);
+    border-radius: var(--radius-xl);
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    box-shadow: var(--shadow-xl), var(--glow-gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.great-hall-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+}
+
+.great-hall-title {
+    font-family: var(--font-title);
+    font-size: 2.75rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.great-hall-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    color: var(--parchment);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.hall-motto {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 2px solid var(--bronze);
+    border-radius: var(--radius-full);
+    color: var(--gold);
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+/* Section des Quatre Maisons */
+.houses-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 1.75rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.houses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.house-card {
+    background: var(--parchment);
+    border: 3px solid;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.house-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.house-card:hover::before {
+    left: 100%;
+}
+
+.house-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+.house-gryffindor {
+    border-color: var(--gryffindor-red);
+    background: linear-gradient(135deg, var(--parchment) 0%, rgba(116, 0, 1, 0.1) 100%);
+}
+
+.house-gryffindor:hover {
+    border-color: var(--gryffindor-gold);
+    box-shadow: 0 8px 24px rgba(116, 0, 1, 0.4);
+}
+
+.house-slytherin {
+    border-color: var(--slytherin-green);
+    background: linear-gradient(135deg, var(--parchment) 0%, rgba(26, 71, 42, 0.1) 100%);
+}
+
+.house-slytherin:hover {
+    border-color: var(--slytherin-silver);
+    box-shadow: 0 8px 24px rgba(26, 71, 42, 0.4);
+}
+
+.house-ravenclaw {
+    border-color: var(--ravenclaw-blue);
+    background: linear-gradient(135deg, var(--parchment) 0%, rgba(14, 26, 64, 0.1) 100%);
+}
+
+.house-ravenclaw:hover {
+    border-color: var(--ravenclaw-bronze);
+    box-shadow: 0 8px 24px rgba(14, 26, 64, 0.4);
+}
+
+.house-hufflepuff {
+    border-color: var(--hufflepuff-yellow);
+    background: linear-gradient(135deg, var(--parchment) 0%, rgba(236, 185, 57, 0.1) 100%);
+}
+
+.house-hufflepuff:hover {
+    border-color: var(--hufflepuff-black);
+    box-shadow: 0 8px 24px rgba(236, 185, 57, 0.4);
+}
+
+.house-crest {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid currentColor;
+}
+
+.house-gryffindor .house-crest {
+    color: var(--gryffindor-red);
+    background: linear-gradient(135deg, var(--gryffindor-gold) 0%, var(--gryffindor-red) 100%);
+}
+
+.house-slytherin .house-crest {
+    color: var(--slytherin-green);
+    background: linear-gradient(135deg, var(--slytherin-silver) 0%, var(--slytherin-green) 100%);
+}
+
+.house-ravenclaw .house-crest {
+    color: var(--ravenclaw-blue);
+    background: linear-gradient(135deg, var(--ravenclaw-bronze) 0%, var(--ravenclaw-blue) 100%);
+}
+
+.house-hufflepuff .house-crest {
+    color: var(--hufflepuff-yellow);
+    background: linear-gradient(135deg, var(--hufflepuff-yellow) 0%, var(--hufflepuff-black) 100%);
+}
+
+.house-crest i {
+    width: 40px;
+    height: 40px;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.house-name {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+}
+
+.house-trait {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--stone-light);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.house-count {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--gold);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Statistiques Magiques */
+.magical-stats-section {
+    margin-bottom: 3rem;
+}
+
+.magical-stats-section .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.stat-card {
+    background: var(--parchment);
+    border: 2px solid var(--bronze);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    text-decoration: none;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.magical-wands .stat-icon {
+    background: linear-gradient(135deg, var(--bronze) 0%, var(--gold) 100%);
+    color: white;
+}
+
+.magical-grades .stat-icon {
+    background: linear-gradient(135deg, var(--ravenclaw-blue) 0%, var(--ravenclaw-bronze) 100%);
+    color: white;
+}
+
+.magical-skills .stat-icon {
+    background: linear-gradient(135deg, var(--magic-purple) 0%, var(--gryffindor-red) 100%);
+    color: white;
+}
+
+.magical-years .stat-icon {
+    background: linear-gradient(135deg, var(--slytherin-green) 0%, var(--magic-green) 100%);
+    color: white;
+}
+
+.magical-exams .stat-icon {
+    background: linear-gradient(135deg, var(--hufflepuff-yellow) 0%, var(--warning-amber) 100%);
+    color: white;
+}
+
+.stat-icon i {
+    width: 32px;
+    height: 32px;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-info .stat-title {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    color: var(--stone-light);
+    margin-bottom: 0.25rem;
+}
+
+.stat-info .stat-value {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--ink);
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.stat-info .stat-desc {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--stone-light);
+    font-style: italic;
+}
+
+/* Actions Rapides */
+.quick-actions-section {
+    margin-bottom: 3rem;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.quick-action-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.75rem;
+    border: 2px solid;
+    border-radius: var(--radius-lg);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.quick-action-card i {
+    width: 24px;
+    height: 24px;
+}
+
+.quick-action-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.action-primary {
+    background: linear-gradient(135deg, var(--ravenclaw-blue) 0%, var(--magic-purple) 100%);
+    border-color: var(--ravenclaw-bronze);
+    color: white;
+}
+
+.action-primary:hover {
+    background: linear-gradient(135deg, var(--magic-purple) 0%, var(--ravenclaw-blue) 100%);
+    border-color: var(--gold);
+}
+
+.action-success {
+    background: linear-gradient(135deg, var(--slytherin-green) 0%, var(--magic-green) 100%);
+    border-color: var(--slytherin-silver);
+    color: white;
+}
+
+.action-success:hover {
+    background: linear-gradient(135deg, var(--magic-green) 0%, var(--slytherin-green) 100%);
+    border-color: var(--gold);
+}
+
+.action-warning {
+    background: linear-gradient(135deg, var(--hufflepuff-yellow) 0%, var(--warning-amber) 100%);
+    border-color: var(--bronze);
+    color: var(--ink);
+}
+
+.action-warning:hover {
+    background: linear-gradient(135deg, var(--warning-amber) 0%, var(--hufflepuff-yellow) 100%);
+    border-color: var(--gold);
+}
+
+.action-info {
+    background: linear-gradient(135deg, var(--gryffindor-red) 0%, var(--danger-red) 100%);
+    border-color: var(--gryffindor-gold);
+    color: white;
+}
+
+.action-info:hover {
+    background: linear-gradient(135deg, var(--danger-red) 0%, var(--gryffindor-red) 100%);
+    border-color: var(--gold);
+}
+
+.action-magical {
+    background: linear-gradient(135deg, var(--bronze) 0%, var(--gold) 100%);
+    border-color: var(--gold);
+    color: var(--ink);
+}
+
+.action-magical:hover {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+    transform: translateX(4px) scale(1.02);
+}
+
+.action-skill {
+    background: linear-gradient(135deg, var(--magic-purple) 0%, var(--ravenclaw-blue) 100%);
+    border-color: var(--silver);
+    color: white;
+}
+
+.action-skill:hover {
+    background: linear-gradient(135deg, var(--ravenclaw-blue) 0%, var(--magic-purple) 100%);
+    border-color: var(--gold);
+}
+
+/* Citation Magique */
+.magical-quote {
+    background: var(--stone-dark);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.5rem;
+    margin-top: 3rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.magical-quote i {
+    width: 32px;
+    height: 32px;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.quote-text {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    color: var(--parchment);
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.quote-author {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 600;
 }

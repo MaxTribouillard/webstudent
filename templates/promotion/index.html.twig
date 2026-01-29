@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Promotions{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">🎯 Liste des Promotions</h1>
+                <a href="{{ path('app_promotion_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Promotion
+                </a>
+            </div>
+        </div>
+
+        {% if promotions|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>👨‍🎓 Élèves</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for promotion in promotions %}
+                        <tr>
+                            <td>{{ promotion.id }}</td>
+                            <td><strong>{{ promotion.code }}</strong></td>
+                            <td>{{ promotion.libelle }}</td>
+                            <td>{{ promotion.eleves|length }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_promotion_show', {'id': promotion.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">🎯</div>
+                <div class="empty-state-text">Aucune promotion trouvée</div>
+                <a href="{{ path('app_promotion_new') }}" class="btn btn-primary">
+                    ➕ Créer la première promotion
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

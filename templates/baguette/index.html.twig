@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Baguettes{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">🪄 Liste des Baguettes</h1>
+                <a href="{{ path('app_baguette_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Baguette
+                </a>
+            </div>
+        </div>
+
+        {% if baguettes|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Bois</th>
+                            <th>Taille (cm)</th>
+                            <th>👨‍🎓 Propriétaires</th>
+                            <th>🧪 Compositions</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for baguette in baguettes %}
+                        <tr>
+                            <td>{{ baguette.id }}</td>
+                            <td><strong>{{ baguette.nom }}</strong></td>
+                            <td>{{ baguette.taille ?: '-' }}</td>
+                            <td>
+                                <span class="badge badge-info">{{ baguette.eleves|length }} élève(s)</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">{{ baguette.compositions|length }}</span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_baguette_show', {'id': baguette.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_baguette_edit', {'id': baguette.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">🪄</div>
+                <div class="empty-state-text">Aucune baguette trouvée</div>
+                <a href="{{ path('app_baguette_new') }}" class="btn btn-primary">
+                    ➕ Créer la première baguette
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la composition - {{ composition.libelle }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">🧪 {{ composition.libelle }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ composition.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Libellé</div>
+                <div class="detail-value">{{ composition.libelle }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre de baguettes</div>
+                <div class="detail-value">{{ composition.baguettes|length }}</div>
+            </div>
+        </div>
+
+        {% if composition.baguettes|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">🪄 Baguettes avec cette composition ({{ composition.baguettes|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Bois</th>
+                                <th>Taille</th>
+                                <th>👨‍🎓 Propriétaires</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for baguette in composition.baguettes %}
+                                <tr>
+                                    <td><strong>{{ baguette.nom }}</strong></td>
+                                    <td>{{ baguette.taille ? baguette.taille ~ ' cm' : '-' }}</td>
+                                    <td>{{ baguette.eleves|length }}</td>
+                                    <td>
+                                        <a href="{{ path('app_baguette_show', {'id': baguette.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_composition_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_composition_edit', {'id': composition.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('composition/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

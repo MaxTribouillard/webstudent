@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la baguette - {{ baguette.nom }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">🪄 {{ baguette.nom }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ baguette.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Bois</div>
+                <div class="detail-value">{{ baguette.nom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Taille</div>
+                <div class="detail-value">{{ baguette.taille ? baguette.taille ~ ' cm' : '-' }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre de propriétaires</div>
+                <div class="detail-value">{{ baguette.eleves|length }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre de compositions</div>
+                <div class="detail-value">{{ baguette.compositions|length }}</div>
+            </div>
+        </div>
+
+        {% if baguette.eleves|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">👨‍🎓 Propriétaires de la Baguette ({{ baguette.eleves|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>🏰 Maison</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in baguette.eleves %}
+                                <tr>
+                                    <td><strong>{{ eleve.nom }}</strong></td>
+                                    <td>{{ eleve.prenom }}</td>
+                                    <td>
+                                        {% if eleve.maison %}
+                                            <a href="{{ path('app_maison_show', {'id': eleve.maison.id}) }}" class="entity-link">
+                                                {{ eleve.maison.nom }}
+                                            </a>
+                                        {% else %}
+                                            <span style="color: #9ca3af;">Aucune</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_eleve_show', {'id': eleve.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if baguette.compositions|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">🧪 Compositions ({{ baguette.compositions|length }})</h2>
+                <div class="related-items">
+                    {% for composition in baguette.compositions %}
+                        <a href="{{ path('app_composition_show', {'id': composition.id}) }}" class="badge badge-primary">
+                            {{ composition.libelle }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_baguette_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_baguette_edit', {'id': baguette.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('baguette/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

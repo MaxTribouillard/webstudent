@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Compositions{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">🧪 Liste des Compositions</h1>
+                <a href="{{ path('app_composition_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Composition
+                </a>
+            </div>
+        </div>
+
+        {% if compositions|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Libellé</th>
+                            <th>🪄 Baguettes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for composition in compositions %}
+                        <tr>
+                            <td>{{ composition.id }}</td>
+                            <td><strong>{{ composition.libelle }}</strong></td>
+                            <td>{{ composition.baguettes|length }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_composition_show', {'id': composition.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_composition_edit', {'id': composition.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">🧪</div>
+                <div class="empty-state-text">Aucune composition trouvée</div>
+                <a href="{{ path('app_composition_new') }}" class="btn btn-primary">
+                    ➕ Créer la première composition
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

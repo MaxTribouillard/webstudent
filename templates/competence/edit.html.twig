@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la compétence{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">✏️ Modifier la compétence</h1>
+        </div>
+
+        {{ include('competence/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <div class="btn-group" style="margin-top: 1rem;">
+            <a href="{{ path('app_competence_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_competence_show', {'id': competence.id}) }}" class="btn btn-primary">
+                👁️ Voir
+            </a>
+        </div>
+    </div>
+{% endblock %}

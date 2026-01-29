@@ -1,34 +1,125 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Eleve{% endblock %}
+{% block title %}Détails de l'élève{{ eleve.prenom }} {{ eleve.nom }}{% endblock %}
 
 {% block body %}
-    <h1>Eleve</h1>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">👨‍🎓 {{ eleve.prenom }} {{ eleve.nom }}</h1>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ eleve.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ eleve.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ eleve.prenom }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissance</th>
-                <td>{{ eleve.dateNaissance ? eleve.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Nom</div>
+                <div class="detail-value">{{ eleve.nom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Prénom</div>
+                <div class="detail-value">{{ eleve.prenom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Date de Naissance</div>
+                <div class="detail-value">{{ eleve.dateNaissance ? eleve.dateNaissance|date('d/m/Y') : '-' }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">🏰 Maison</div>
+                <div class="detail-value">
+                    {% if eleve.maison %}
+                        <a href="{{ path('app_maison_show', {'id': eleve.maison.id}) }}" class="entity-link">
+                            {{ eleve.maison.nom }}
+                        </a>
+                    {% else %}
+                        <span style="color: #9ca3af;">Non assigné</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">🪄 Baguette</div>
+                <div class="detail-value">
+                    {% if eleve.baguette %}
+                        <a href="{{ path('app_baguette_show', {'id': eleve.baguette.id}) }}" class="entity-link">
+                            {{ eleve.baguette.nom }} - {{ eleve.baguette.taille }}cm
+                        </a>
+                    {% else %}
+                        <span style="color: #9ca3af;">Aucune baguette</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">🎯 Promotion</div>
+                <div class="detail-value">
+                    {% if eleve.promotion %}
+                        <a href="{{ path('app_promotion_show', {'id': eleve.promotion.id}) }}" class="entity-link">
+                            {{ eleve.promotion.libelle }}
+                        </a>
+                    {% else %}
+                        <span style="color: #9ca3af;">Aucune promotion</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
-    <a href="{{ path('app_eleve_index') }}">back to list</a>
+        {% if eleve.competence|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">⭐ Compétences</h2>
+                <div class="related-items">
+                    {% for competence in eleve.competence %}
+                        <a href="{{ path('app_competence_show', {'id': competence.id}) }}" class="badge badge-primary">
+                            {{ competence.libelle }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
 
-    <a href="{{ path('app_eleve_edit', {'id': eleve.id}) }}">edit</a>
+        {% if eleve.notes|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">📝 Notes ({{ eleve.notes|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Matière</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for note in eleve.notes %}
+                                <tr>
+                                    <td>
+                                        {% if note.matiere %}
+                                            <a href="{{ path('app_matiere_show', {'id': note.matiere.id}) }}" class="entity-link">
+                                                {{ note.matiere.libelle }}
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td><strong>{{ note.note }}/20</strong></td>
+                                    <td>{{ note.date ? note.date|date('d/m/Y') : '-' }}</td>
+                                    <td>
+                                        <a href="{{ path('app_note_show', {'id': note.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
 
-    {{ include('eleve/_delete_form.html.twig') }}
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_eleve_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_eleve_edit', {'id': eleve.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('eleve/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

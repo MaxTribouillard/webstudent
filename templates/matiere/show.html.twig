@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la matière - {{ matiere.libelle }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">📚 {{ matiere.libelle }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ matiere.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Libellé</div>
+                <div class="detail-value">{{ matiere.libelle }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre d'élèves maximum</div>
+                <div class="detail-value">{{ matiere.nbElevesMax ?? '-' }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre de notes</div>
+                <div class="detail-value">{{ matiere.notes|length }}</div>
+            </div>
+        </div>
+
+        {% if matiere.notes|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">📝 Notes ({{ matiere.notes|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Élève</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for note in matiere.notes %}
+                                <tr>
+                                    <td>
+                                        {% if note.eleve %}
+                                            <a href="{{ path('app_eleve_show', {'id': note.eleve.id}) }}" class="entity-link">
+                                                {{ note.eleve.prenom }} {{ note.eleve.nom }}
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td><strong>{{ note.note }}</strong></td>
+                                    <td>{{ note.date ? note.date|date('d/m/Y') : '-' }}</td>
+                                    <td>
+                                        <a href="{{ path('app_note_show', {'id': note.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_matiere_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('matiere/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

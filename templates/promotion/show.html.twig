@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la promotion - {{ promotion.libelle }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">🎯 {{ promotion.libelle }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ promotion.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Code</div>
+                <div class="detail-value">{{ promotion.code }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Libellé</div>
+                <div class="detail-value">{{ promotion.libelle }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre d'élèves</div>
+                <div class="detail-value">{{ promotion.eleves|length }}</div>
+            </div>
+        </div>
+
+        {% if promotion.eleves|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">👨‍🎓 Élèves de la Promotion ({{ promotion.eleves|length }})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>🏯 Maison</th>
+                                <th>🪄 Baguette</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in promotion.eleves %}
+                                <tr>
+                                    <td><strong>{{ eleve.nom }}</strong></td>
+                                    <td>{{ eleve.prenom }}</td>
+                                    <td>
+                                        {% if eleve.maison %}
+                                            <a href="{{ path('app_maison_show', {'id': eleve.maison.id}) }}" class="entity-link">
+                                                {{ eleve.maison.nom }}
+                                            </a>
+                                        {% else %}
+                                            <span style="color: #9ca3af;">Aucune</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if eleve.baguette %}
+                                            <a href="{{ path('app_baguette_show', {'id': eleve.baguette.id}) }}" class="entity-link">
+                                                {{ eleve.baguette.nom }}
+                                            </a>
+                                        {% else %}
+                                            <span style="color: #9ca3af;">Aucune</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_eleve_show', {'id': eleve.id}) }}" class="btn btn-sm btn-primary">
+                                            👁️ Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_promotion_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('promotion/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

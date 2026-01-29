@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la note{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">📝 Note</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">ID</div>
+                <div class="detail-value">{{ note.id }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Note</div>
+                <div class="detail-value"><strong>{{ note.note }}</strong></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Date</div>
+                <div class="detail-value">{{ note.date ? note.date|date('d/m/Y') : '-' }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">👨‍🎓 Élève</div>
+                <div class="detail-value">
+                    {% if note.eleve %}
+                        <a href="{{ path('app_eleve_show', {'id': note.eleve.id}) }}" class="entity-link">
+                            {{ note.eleve.prenom }} {{ note.eleve.nom }}
+                        </a>
+                    {% else %}
+                        <span style="color: #9ca3af;">Aucun</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">📚 Matière</div>
+                <div class="detail-value">
+                    {% if note.matiere %}
+                        <a href="{{ path('app_matiere_show', {'id': note.matiere.id}) }}" class="entity-link">
+                            {{ note.matiere.libelle }}
+                        </a>
+                    {% else %}
+                        <span style="color: #9ca3af;">Aucune</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_note_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_note_edit', {'id': note.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('note/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

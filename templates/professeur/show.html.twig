@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du professeur - {{ professeur.prenom }} {{ professeur.nom }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">👩‍🏫 {{ professeur.prenom }} {{ professeur.nom }}</h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Nom</div>
+                <div class="detail-value">{{ professeur.nom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Prénom</div>
+                <div class="detail-value">{{ professeur.prenom }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Date de Naissance</div>
+                <div class="detail-value">{{ professeur.dateNaissance ? professeur.dateNaissance|date('d/m/Y') : '-' }}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Nombre de compétences</div>
+                <div class="detail-value">{{ professeur.competence|length }}</div>
+            </div>
+        </div>
+
+        {% if professeur.competence|length > 0 %}
+            <div class="related-section">
+                <h2 class="related-title">⭐ Compétences enseignées ({{ professeur.competence|length }})</h2>
+                <div class="related-items">
+                    {% for competence in professeur.competence %}
+                        <a href="{{ path('app_competence_show', {'id': competence.id}) }}" class="badge badge-primary">
+                            {{ competence.libelle }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="{{ path('app_professeur_index') }}" class="btn btn-secondary">
+                ⬅️ Retour à la liste
+            </a>
+            <a href="{{ path('app_professeur_edit', {'id': professeur.id}) }}" class="btn btn-warning">
+                ✏️ Modifier
+            </a>
+            {{ include('professeur/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

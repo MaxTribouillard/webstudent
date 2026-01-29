@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Notes{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 class="card-title">📝 Liste des Notes</h1>
+                <a href="{{ path('app_note_new') }}" class="btn btn-primary">
+                    ➕ Nouvelle Note
+                </a>
+            </div>
+        </div>
+
+        {% if notes|length > 0 %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>👨‍🎓 Élève</th>
+                            <th>📚 Matière</th>
+                            <th>Note</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for note in notes %}
+                        <tr>
+                            <td>{{ note.id }}</td>
+                            <td>
+                                {% if note.eleve %}
+                                    <a href="{{ path('app_eleve_show', {'id': note.eleve.id}) }}" class="entity-link">
+                                        {{ note.eleve.prenom }} {{ note.eleve.nom }}
+                                    </a>
+                                {% else %}
+                                    <span style="color: #9ca3af;">Aucun</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if note.matiere %}
+                                    <a href="{{ path('app_matiere_show', {'id': note.matiere.id}) }}" class="entity-link">
+                                        {{ note.matiere.libelle }}
+                                    </a>
+                                {% else %}
+                                    <span style="color: #9ca3af;">Aucune</span>
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ note.note }}</strong></td>
+                            <td>{{ note.date ? note.date|date('d/m/Y') : '-' }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ path('app_note_show', {'id': note.id}) }}" class="btn btn-sm btn-primary">
+                                        👁️ Voir
+                                    </a>
+                                    <a href="{{ path('app_note_edit', {'id': note.id}) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Modifier
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">📝</div>
+                <div class="empty-state-text">Aucune note trouvée</div>
+                <a href="{{ path('app_note_new') }}" class="btn btn-primary">
+                    ➕ Créer la première note
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
