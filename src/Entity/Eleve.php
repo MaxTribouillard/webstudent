@@ -46,6 +46,9 @@ class Eleve
     #[ORM\ManyToMany(targetEntity: Competence::class, inversedBy: 'eleves')]
     private Collection $competence;
 
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Epouvantard $epouvantard = null;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -179,6 +182,18 @@ class Eleve
     public function removeCompetence(Competence $competence): static
     {
         $this->competence->removeElement($competence);
+
+        return $this;
+    }
+
+    public function getEpouvantard(): ?Epouvantard
+    {
+        return $this->epouvantard;
+    }
+
+    public function setEpouvantard(?Epouvantard $epouvantard): static
+    {
+        $this->epouvantard = $epouvantard;
 
         return $this;
     }

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Epouvantard{% endblock %}
+
+{% block body %}
+    <h1>Epouvantard</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ epouvantard.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ epouvantard.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ epouvantard.description }}</td>
+            </tr>
+            <tr>
+                <th>Intensite</th>
+                <td>{{ epouvantard.intensite }}</td>
+            </tr>
+            <tr>
+            <th>Eleves partageant cet épouvantard</th>
+            <td>{% for eleve in epouvantard.eleves %}
+                {{eleve.nom}}
+            {% endfor %}
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_epouvantard_index') }}">back to list</a>
+
+    <a href="{{ path('app_epouvantard_edit', {'id': epouvantard.id}) }}">edit</a>
+
+    {{ include('epouvantard/_delete_form.html.twig') }}
+{% endblock %}

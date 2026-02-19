@@ -22,6 +22,7 @@
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>Date de Naissance</th>
+                            <th>Epouvantard</th>
                             <th>🏰 Maison</th>
                             <th>🪄 Baguette</th>
                             <th>🎯 Promotion</th>
@@ -35,6 +36,15 @@
                             <td><strong>{{ eleve.nom }}</strong></td>
                             <td>{{ eleve.prenom }}</td>
                             <td>{{ eleve.dateNaissance ? eleve.dateNaissance|date('d/m/Y') : '-' }}</td>
+                            <td>
+                            {% if eleve.epouvantard %} 
+                            <a href="{{ path('app_epouvantard_show', {'id': eleve.epouvantard.id}) }}" class="entity-link">
+                            {{eleve.epouvantard.nom}}
+                            </a>
+                            {% else %} 
+                            Pas d'epouvantard
+                             {% endif %}
+                            </td>
                             <td>
                                 {% if eleve.maison %}
                                     <a href="{{ path('app_maison_show', {'id': eleve.maison.id}) }}" class="entity-link">

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Epouvantard index{% endblock %}
+
+{% block body %}
+    <h1>Liste des épouvantard :</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Intensite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for epouvantard in epouvantards %}
+            <tr>
+                <td>{{ epouvantard.id }}</td>
+                <td>{{ epouvantard.nom }}</td>
+                <td>{{ epouvantard.description }}</td>
+                <td>{{ epouvantard.intensite }}</td>
+                <td>
+                    <a href="{{ path('app_epouvantard_show', {'id': epouvantard.id}) }}">show</a>
+                    <a href="{{ path('app_epouvantard_edit', {'id': epouvantard.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_epouvantard_new') }}">Create new</a>
+{% endblock %}
