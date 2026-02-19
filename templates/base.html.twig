@@ -3,16 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Poudlard - École de Sorcellerie et de Magie. Gérez les élèves, maisons, professeurs et cours magiques.">
         <title>{% block title %}Poudlard - École de Sorcellerie{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221em%22 font-size=%2280%22>⚡</text></svg>">
         
-        <!-- Google Fonts - Cinzel (médiéval) et EB Garamond -->
+        <!-- Google Fonts - Cinzel (display) et EB Garamond (body) -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
         
         <!-- Lucide Icons -->
-        <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="https://unpkg.com/lucide@latest" defer></script>
         
         {% block stylesheets %}
         {% endblock %}
@@ -22,16 +23,13 @@
         {% endblock %}
     </head>
     <body>
-        <!-- Floating magical particles background -->
-        <div class="magical-background"></div>
-        
         <!-- Header with Hogwarts theme -->
-        <header class="hogwarts-header">
+        <header class="hogwarts-header" role="banner">
             <div class="header-decoration top"></div>
-            <nav class="hogwarts-nav">
+            <nav class="hogwarts-nav" role="navigation" aria-label="Navigation principale">
                 <div class="nav-container">
-                    <a href="{{ path('app_home') }}" class="hogwarts-logo">
-                        <span class="logo-shield">
+                    <a href="{{ path('app_home') }}" class="hogwarts-logo" aria-label="Retour à la Grande Salle">
+                        <span class="logo-shield" aria-hidden="true">
                             <i data-lucide="shield"></i>
                         </span>
                         <span class="logo-text">
@@ -108,15 +106,15 @@
         </header>
         
         <!-- Main content area -->
-        <main class="hogwarts-main">
+        <main class="hogwarts-main" role="main">
             <div class="content-wrapper">
                 {% block body %}{% endblock %}
             </div>
         </main>
         
         <!-- Footer with house colors -->
-        <footer class="hogwarts-footer">
-            <div class="house-colors">
+        <footer class="hogwarts-footer" role="contentinfo">
+            <div class="house-colors" aria-hidden="true">
                 <div class="house-stripe gryffindor" title="Gryffondor"></div>
                 <div class="house-stripe slytherin" title="Serpentard"></div>
                 <div class="house-stripe hufflepuff" title="Poufsouffle"></div>
@@ -126,8 +124,12 @@
         </footer>
         
         <script>
-            // Initialize Lucide icons
-            lucide.createIcons();
+            // Initialize Lucide icons when DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
         </script>
     </body>
 </html>
